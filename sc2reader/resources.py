@@ -386,9 +386,16 @@ class Replay(Resource):
             return
 
         self.map_name = details["map_name"]
-        self.region = details["cache_handles"][0].server.lower()
-        self.map_hash = details["cache_handles"][-1].hash
-        self.map_file = details["cache_handles"][-1]
+        cache_handles = details["cache_handles"]
+        if cache_handles:  # Fix for issue ggtracker/sc2reader#149
+            self.region = cache_handles[0].server.lower()
+            self.map_hash = cache_handles[-1].hash
+            self.map_file = cache_handles[-1]
+        else:
+            self.region = self.map_hash = self.map_file = ""
+            self.logger.warn(
+                "Details {map_name} has cache_handles={cache_handles}".format(**details)
+            )
 
         # Expand this special case mapping
         if self.region == "sg":
