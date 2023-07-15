@@ -429,9 +429,10 @@ class Replay(Resource):
             )
 
         self.game_length = self.length
+        expansion = self.expansion if self.expansion else 'LotV' # Using @brean's logic to fix bot replays
         self.real_length = utils.Length(
             seconds=self.length.seconds
-            // GAME_SPEED_FACTOR[self.expansion].get(self.speed, 1.0)
+            // GAME_SPEED_FACTOR[expansion].get(self.speed, 1.0)
         )
         self.start_time = datetime.utcfromtimestamp(
             self.unix_timestamp - self.real_length.seconds
@@ -1096,9 +1097,10 @@ class GameSummary(Resource):
         self.end_time = datetime.utcfromtimestamp(self.parts[0][8])
         self.game_speed = LOBBY_PROPERTIES[0xBB8][1][self.parts[0][0][1].decode("utf8")]
         self.game_length = utils.Length(seconds=self.parts[0][7])
+        expansion = self.expansion if self.expansion else 'LotV'
         self.real_length = utils.Length(
             seconds=int(
-                self.parts[0][7] / GAME_SPEED_FACTOR[self.expansion][self.game_speed]
+                self.parts[0][7] / GAME_SPEED_FACTOR[expansion][self.game_speed] # Using @brean's logic to fix bot replays
             )
         )
         self.start_time = datetime.utcfromtimestamp(
