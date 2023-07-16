@@ -63,7 +63,7 @@ class ContextLoader(object):
             self.logger.error("Other unit {0} not found".format(event.other_unit_id))
 
     def handleTargetUnitCommandEvent(self, event, replay):
-        if event.player is not None:
+        if event.player:
             self.last_target_ability_event[event.player.pid] = event
 
 
