@@ -1097,7 +1097,7 @@ class GameSummary(Resource):
         self.end_time = datetime.utcfromtimestamp(self.parts[0][8])
         self.game_speed = LOBBY_PROPERTIES[0xBB8][1][self.parts[0][0][1].decode("utf8")]
         self.game_length = utils.Length(seconds=self.parts[0][7])
-        expansion = self.expansion if self.expansion else 'LotV'
+        expansion = self.expansion or 'LotV'
         self.real_length = utils.Length(
             seconds=int(
                 self.parts[0][7] / GAME_SPEED_FACTOR[expansion][self.game_speed] # Using @brean's logic to fix bot replays
