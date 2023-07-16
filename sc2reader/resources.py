@@ -1101,7 +1101,7 @@ class GameSummary(Resource):
         self.real_length = utils.Length(
              # Use @brean's logic to fix bot replays
             seconds=int(
-                self.parts[0][7] / GAME_SPEED_FACTOR[expansion][self.game_speed] # Using @brean's logic to fix bot replays
+                self.parts[0][7] / GAME_SPEED_FACTOR[expansion][self.game_speed]
             )
         )
         self.start_time = datetime.utcfromtimestamp(
