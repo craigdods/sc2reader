@@ -429,7 +429,7 @@ class Replay(Resource):
             )
 
         self.game_length = self.length
-        expansion = self.expansion if self.expansion else 'LotV' # Using @brean's logic to fix bot replays
+        expansion = self.expansion or 'LotV' # Using @brean's logic to fix bot replays
         self.real_length = utils.Length(
             seconds=self.length.seconds
             // GAME_SPEED_FACTOR[expansion].get(self.speed, 1.0)
