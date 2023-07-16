@@ -1099,6 +1099,7 @@ class GameSummary(Resource):
         self.game_length = utils.Length(seconds=self.parts[0][7])
         expansion = self.expansion or 'LotV'
         self.real_length = utils.Length(
+             # Use @brean's logic to fix bot replays
             seconds=int(
                 self.parts[0][7] / GAME_SPEED_FACTOR[expansion][self.game_speed] # Using @brean's logic to fix bot replays
             )
